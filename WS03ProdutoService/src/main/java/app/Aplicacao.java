@@ -2,29 +2,32 @@ package app;
 
 import static spark.Spark.*;
 import service.ProdutoService;
-
+import service.CarroService;
 
 public class Aplicacao {
 	
 	private static ProdutoService produtoService = new ProdutoService();
+	private static CarroService carroService = new CarroService();
 	
     public static void main(String[] args) {
         port(6789);
         
         staticFiles.location("/public");
         
-        post("/produto/insert", (request, response) -> produtoService.insert(request, response));
+        // Rotas Produto
+        post("/produto/insert", produtoService::insert);
+        get("/produto/:id", produtoService::get);
+        get("/produto/list/:orderby", produtoService::getAll);
+        get("/produto/update/:id", produtoService::getToUpdate);
+        post("/produto/update/:id", produtoService::update);
+        get("/produto/delete/:id", produtoService::delete);
 
-        get("/produto/:id", (request, response) -> produtoService.get(request, response));
-        
-        get("/produto/list/:orderby", (request, response) -> produtoService.getAll(request, response));
-
-        get("/produto/update/:id", (request, response) -> produtoService.getToUpdate(request, response));
-        
-        post("/produto/update/:id", (request, response) -> produtoService.update(request, response));
-           
-        get("/produto/delete/:id", (request, response) -> produtoService.delete(request, response));
-
-             
+        // Rotas Carro
+        post("/carro/insert", carroService::insert);
+        get("/carro/:id", carroService::get);
+        get("/carro/list/:orderby", carroService::getAll);
+        get("/carro/update/:id", carroService::getToUpdate);
+        post("/carro/update/:id", carroService::update);
+        get("/carro/delete/:id", carroService::delete);
     }
 }

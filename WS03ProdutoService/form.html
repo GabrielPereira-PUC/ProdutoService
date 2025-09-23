@@ -4,28 +4,15 @@
   <meta charset="UTF-8" />
   <title>Controle de Estoque</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       background-color: white;
       font-family: Arial, sans-serif;
       margin: 20px;
       color: #333;
     }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-weight: bold;
-      color: #2c3e50;
-    }
-
-    .input--main__style {
-      background-color: #00FF00;
-    }
-
+    h1 { text-align: center; margin-bottom: 30px; font-weight: bold; color: #2c3e50; }
+    .input--main__style { background-color: #00FF00; }
     .input--button {
       font-weight: bold;
       font-family: Arial, sans-serif;
@@ -39,15 +26,8 @@
       border-radius: 7px;
       transition: background-color 0.3s ease;
     }
-
-    .input--button:hover {
-      background-color: #00cc00;
-    }
-
-    .input--register {
-      display: inline;
-    }
-
+    .input--button:hover { background-color: #00cc00; }
+    .input--register { display: inline; }
     input {
       display: block;
       border-radius: 7px;
@@ -60,49 +40,50 @@
       max-width: 400px;
       font-size: 1rem;
     }
-
-    form p {
-      text-align: initial;
-      display: inline;
-      margin-left: 15px;
-    }
-
-    .p--nomargin {
-      margin-left: 0;
-      margin-right: 10px;
-    }
+    form p { text-align: initial; display: inline; margin-left: 15px; }
+    .p--nomargin { margin-left: 0; margin-right: 10px; }
+    table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+    th { background-color: #f3f3f3; }
   </style>
   <script type="text/javascript">
     function confirmarDeleteProduto(id, descricao, preco) {
-      if (
-        confirm(
-          'Confirmar a exclusão do produto [' +
-            descricao +
-            '] (ID ' +
-            id +
-            ') com preço R$ ' +
-            preco
-        )
-      ) {
+      if (confirm('Confirmar a exclusão do produto [' + descricao + '] (ID ' + id + ') com preço R$ ' + preco)) {
         location.href = '/produto/delete/' + id;
       }
     }
-    function onLoad() {
-      if (document.getElementById('msg').value != '') {
-        alert(document.getElementById('msg').value);
+
+    function confirmarDeleteCarro(id, modelo, marca) {
+      if (confirm('Confirmar a exclusão do carro [' + modelo + ' - ' + marca + '] (ID ' + id + ')')) {
+        location.href = '/carro/delete/' + id;
       }
+    }
+
+    function onLoad() {
+      const msgElem = document.getElementById('msg');
+      if (msgElem.value !== '') { alert(msgElem.value); }
     }
   </script>
 </head>
 <body onload="onLoad()">
   <h1>Controle de Estoque</h1>
   <input type="hidden" id="msg" name="msg" value="" />
+
   <main>
+    <!-- CRUD Produto -->
     <section id="um-produto">
       <UM-PRODUTO></UM-PRODUTO>
     </section>
-    <section id="listar-produto" style="margin-top: 20px;">
+    <section id="listar-produto">
       <LISTAR-PRODUTO></LISTAR-PRODUTO>
+    </section>
+
+    <!-- CRUD Carro -->
+    <section id="um-carro" style="margin-top:50px;">
+      <UM-CARRO></UM-CARRO>
+    </section>
+    <section id="listar-carro">
+      <LISTAR-CARRO></LISTAR-CARRO>
     </section>
   </main>
 </body>
