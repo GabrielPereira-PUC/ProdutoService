@@ -62,12 +62,33 @@
     function onLoad() {
       const msgElem = document.getElementById('msg');
       if (msgElem.value !== '') { alert(msgElem.value); }
+
+      // --- ADICIONADO: Botão de alternância entre Produto e Carro ---
+      const currentUrl = window.location.href;
+      const navDiv = document.getElementById("nav-switch");
+
+      if (currentUrl.includes("/produto/list/1")) {
+        const btn = document.createElement("button");
+        btn.innerText = "Ir para Carros";
+        btn.className = "input--button input--main__style";
+        btn.onclick = () => window.location.href = "http://localhost:6789/carro/list/1";
+        navDiv.appendChild(btn);
+      } else if (currentUrl.includes("/carro/list/1")) {
+        const btn = document.createElement("button");
+        btn.innerText = "Ir para Produtos";
+        btn.className = "input--button input--main__style";
+        btn.onclick = () => window.location.href = "http://localhost:6789/produto/list/1";
+        navDiv.appendChild(btn);
+      }
     }
   </script>
 </head>
 <body onload="onLoad()">
   <h1>Controle de Estoque</h1>
   <input type="hidden" id="msg" name="msg" value="" />
+
+  <!-- Aqui o botão será injetado dinamicamente -->
+  <div id="nav-switch" style="text-align:center; margin-bottom:20px;"></div>
 
   <main>
     <!-- CRUD Produto -->
